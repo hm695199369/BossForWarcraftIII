@@ -1,0 +1,32 @@
+package PlayerUnit
+import ExternalDefines
+import public IPlayerUnit
+import PlayerHelper
+
+public class PlayerUnit extends IPlayerUnit
+    override function listen_all()
+        if _DEBUG
+            print("PlayerUnit::listen_all::error call")
+    
+    override function spell(int nSkillId)
+        if _DEBUG
+            print("PlayerUnit::spell::error call")
+
+    construct(player pl, unit u)
+        m_self_unit = u
+        //whenver create a playerunit, register it!
+        //actually, in this map, each player only has one unit
+        if not IPlayerHelper.register_controlling_unit(pl, u)
+            if _DEBUG
+                print("repeat choose")
+
+public abstract class ISkill
+    unit m_self_unit
+    construct(unit u)
+        m_self_unit = u
+
+    abstract function cast()
+        
+    abstract function listen()
+
+    abstract function get_self_id() returns int

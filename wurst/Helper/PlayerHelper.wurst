@@ -1,8 +1,12 @@
 package PlayerHelper
+import Table
+import initlater IceMage
+import initlater FireMage
 
-import public IceMage
-import public FireMage
+public function player.get_unit() returns unit
+    return IPlayerHelper.get_player_unit(this)
 
+//* the only way to init!
 public function player.init_self(unit u, career emCareer)
     PlayerUnit obj
     switch emCareer
@@ -14,4 +18,19 @@ public function player.init_self(unit u, career emCareer)
             obj = null
 
     if obj != null
-        IPlayerUnit.register(u, obj)
+        PlayerUnitHelper.register(u, obj)
+
+public abstract class IPlayerHelper
+    static Table mapPlayerUnit = new Table
+    static function get_player_unit(player pl) returns unit
+        if mapPlayerUnit.hasInt(pl.getId())
+            return mapPlayerUnit.loadUnit(pl.getId())
+        else
+            return null
+    
+    static function register_controlling_unit(player pl, unit u) returns boolean
+        if mapPlayerUnit.hasInt(pl.getId())
+            return false
+        
+        mapPlayerUnit.saveUnit(pl.getId(), u)
+        return true

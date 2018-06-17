@@ -1,0 +1,14 @@
+package IPlayerUnit
+import NoWurst
+
+public enum career
+    ice_mage
+    fire_mage
+
+public abstract class IPlayerUnit
+    protected unit m_self_unit
+    protected career m_self_career
+
+    abstract function spell(int nSkillId)
+
+    abstract function listen_all()
